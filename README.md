@@ -9,9 +9,12 @@ independently.
 
 | Skill | Description |
 |---|---|
-| [`security-design-review-dataflow-diagram`](skills/security-design-review-dataflow-diagram) | Generates a dataflow diagram and a per-endpoint-pair security-controls table from an RFC, design doc, or system description. |
+| [`security-design-review-dataflow-diagram`](skills/security-design-review-dataflow-diagram) | Generates a dataflow diagram (actors, APIs, services, databases, and the direction data moves between them) from an RFC, design doc, or system description. |
+| [`security-design-review-controls-table`](skills/security-design-review-controls-table) | Generates a per-endpoint-pair security-controls table (authentication, authorization, sanitization, data protection, logging) from an RFC, design doc, or system description. |
 
-More skills will be added here over time.
+These two are siblings and designed to be used together or independently —
+each extracts its own copy of the RFC's endpoint-pair data, so neither
+requires the other to be installed. More skills will be added here over time.
 
 ## Install
 
