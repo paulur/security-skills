@@ -29,42 +29,12 @@ The skill is a separate methodology, built specifically around what a *security 
 
 ### General-purpose diagramming, applied to this RFC
 
-```mermaid
-flowchart TD
-    classDef actor fill:#F1EFE8,stroke:#5F5E5A,color:#2C2C2A
-    classDef service fill:#EEEDFE,stroke:#534AB7,color:#26215C
-    classDef datastore fill:#E1F5EE,stroke:#0F6E56,color:#04342C
-    classDef queue fill:#FAEEDA,stroke:#854F0B,color:#412402
-
-    WebUser[Web user<br/>Actor]:::actor
-    OtherSvc[Other internal services<br/>Actor]:::actor
-    ProfileSvc[Profile Service<br/>Service]:::service
-    ProfileDB[(Profile DB<br/>Datastore)]:::datastore
-    EventBus{{Event bus<br/>Queue}}:::queue
-    NotifSender[Notification sender<br/>Service]:::service
-
-    WebUser -->|GET/PATCH| ProfileSvc
-    OtherSvc -->|check| ProfileSvc
-    ProfileSvc -->|read/write| ProfileDB
-    ProfileSvc -.->|publish| EventBus
-    EventBus -.->|subscribe| NotifSender
-    NotifSender -->|check| ProfileSvc
-```
+![Dataflow diagram drawn with general-purpose diagramming defaults, no skill applied](images/native_default_dfd.png)
 
 ### The skill's methodology, applied to the same RFC
 
-```mermaid
-flowchart LR
-    classDef inscope fill:#EEEDFE,stroke:#534AB7,color:#26215C
-    classDef outscope fill:#F1EFE8,stroke:#5F5E5A,color:#2C2C2A
+![Dataflow diagram produced by the security-design-review-dataflow-diagram skill](images/skill_dfd.png)
 
-    WebUser([Web user]):::outscope -->|HTTPS| ProfileSvc[Profile Service]:::inscope
-    OtherSvc[Other internal services]:::outscope -->|mTLS| ProfileSvc
-    ProfileSvc --> ProfileDB[(Profile DB)]:::inscope
-    ProfileSvc --> EventBus{{Event bus}}:::outscope
-    EventBus --> NotifSender[Notification sender]:::outscope
-    ProfileSvc <-->|mTLS| NotifSender
-```
 
 ## Where they diverge, and why each choice was made
 
